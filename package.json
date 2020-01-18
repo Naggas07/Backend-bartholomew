@@ -1,0 +1,35 @@
+{
+  "name": "back-barthlomew",
+  "version": "1.0.0",
+  "description": "backend of aplication in progress",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Naggas07/Backend-bartholomew.git"
+  },
+  "author": "Naggas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Naggas07/Backend-bartholomew/issues"
+  },
+  "homepage": "https://github.com/Naggas07/Backend-bartholomew#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.7",
+    "connect-mongo": "^3.2.0",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "mongoose": "^5.8.9",
+    "morgan": "^1.9.1",
+    "passport": "^0.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
