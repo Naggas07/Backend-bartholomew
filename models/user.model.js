@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema();
+const Schema = mongoose.Schema;
 
 const bcrypt = require("bcrypt");
 
-const SALT_FACTOR = 11;
+const SALTFACTOR = 11;
 const EMAIL_PATTERN = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
 const UserSchema = new Schema(
@@ -44,6 +44,32 @@ const UserSchema = new Schema(
       required: true,
       enum: ["Active", "Pending", "Banned"],
     },
+    userType: {
+      type: String,
+      required: true,
+      enum: ["Admin", "User", "Super"],
+      default: "User",
+    },
+    rol: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Rol",
+    },
+    department: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Department",
+    },
+    departmentRol: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Rol",
+    },
+    squad: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Squad",
+    },
+    squadRol: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Rol",
+    },
   },
   {
     timestamp: true,
@@ -81,6 +107,6 @@ userSchema.methods.comparePassword = function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-const User = mongoose.Model(UserSchema, "User");
+const User = mongoose.Model("User", UserSchema);
 
 module.exports = User;
