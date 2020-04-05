@@ -16,6 +16,10 @@ const DepartmentSchema = new Schema(
       required: true,
       enum: ["Active", "Deprecated"],
     },
+    roles: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Rol",
+    },
     userCreate: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
