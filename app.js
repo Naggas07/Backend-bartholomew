@@ -33,12 +33,12 @@ const router = require("./config/routes.js");
 app.use("/", router);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(error, req, res, next) {
+app.use(function (error, req, res, next) {
   console.error("-" * 1000);
   console.error(error);
 
