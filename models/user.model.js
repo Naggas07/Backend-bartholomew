@@ -6,20 +6,20 @@ const bcrypt = require("bcrypt");
 const SALTFACTOR = 11;
 const EMAIL_PATTERN = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
-const UserSchema = new Schema(
+const userSchema = new Schema(
   {
     name: {
       type: String,
       required: true,
       lowecase: true,
     },
-    lastname1: {
+    lastName1: {
       type: String,
     },
-    lastname2: {
+    lastName2: {
       type: String,
     },
-    user: {
+    nickName: {
       type: String,
       required: true,
       unique: true,
@@ -41,12 +41,11 @@ const UserSchema = new Schema(
     },
     state: {
       type: String,
-      required: true,
       enum: ["Active", "Pending", "Banned"],
+      default: "Pending",
     },
     userType: {
       type: String,
-      required: true,
       enum: ["Admin", "User", "Super"],
       default: "User",
     },
@@ -72,11 +71,11 @@ const UserSchema = new Schema(
     },
   },
   {
-    timestamp: true,
-    ToJSON: {
+    timestamps: true,
+    toJSON: {
       transform: (doc, ret) => {
-        ret.id = doc._id;
-        delete ret.id;
+        ret.id = doc.id;
+        delete ret._id;
         delete ret.password;
         delete ret.__v;
         return ret;
@@ -107,6 +106,6 @@ userSchema.methods.comparePassword = function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-const User = mongoose.Model("User", UserSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;
