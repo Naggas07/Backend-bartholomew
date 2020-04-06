@@ -102,6 +102,11 @@ userSchema.pre("save", function (next) {
   }
 });
 
+userSchema.pre("findOneAndUpdate", async function () {
+  console.log(this._update);
+  this._update.password = await bcrypt.hash(this._update.password, SALTFACTOR);
+});
+
 userSchema.methods.comparePassword = function (password) {
   return bcrypt.compare(password, this.password);
 };

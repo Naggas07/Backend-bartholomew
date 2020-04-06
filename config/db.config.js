@@ -3,7 +3,11 @@ const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://localhost:27017/backend-bartholomew";
 
 mongoose
-  .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  })
   .then(() =>
     console.info(`Successfully connected to the database ${MONGODB_URI}`)
   )
