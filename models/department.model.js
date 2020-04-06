@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+require("./rolDepartment.model");
+require("./user.model");
+
 const DepartmentSchema = new Schema(
   {
     title: {
@@ -14,11 +17,7 @@ const DepartmentSchema = new Schema(
     state: {
       type: String,
       required: true,
-      enum: ["Active", "Deprecated"],
-    },
-    roles: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: "Rol",
+      enum: ["Active", "Inactive"],
     },
     userCreate: {
       type: mongoose.Schema.Types.ObjectId,
@@ -29,6 +28,7 @@ const DepartmentSchema = new Schema(
   {
     timestamps: true,
     toJSON: {
+      virtuals: true,
       transform: (doc, ret) => {
         ret.id = doc._id;
         delete ret._id;
@@ -38,6 +38,13 @@ const DepartmentSchema = new Schema(
     },
   }
 );
+
+DepartmentSchema.virtual("roles", {
+  ref: "RolDepartment",
+  localField: "_id",
+  foreignField: "department",
+  justOne: false,
+});
 
 const Department = mongoose.model("Department", DepartmentSchema);
 

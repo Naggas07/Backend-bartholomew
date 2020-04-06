@@ -1,5 +1,4 @@
 const User = require("../models/user.model");
-const mongoose = require("mongoose");
 
 module.exports.prueba = (req, res, next) => {
   res.json({ message: "prueba" });
@@ -25,10 +24,15 @@ module.exports.getUsers = (req, res, next) => {
 
 module.exports.getFilterUsers = (req, res, next) => {
   const { userType } = req.params;
-
-  User.find({ userType })
-    .then((users) => res.status(200).json(users))
-    .catch(next);
+  if (userType === "All") {
+    User.find()
+      .then((users) => res.status(200).json(users))
+      .catch(next);
+  } else {
+    User.find({ userType })
+      .then((users) => res.status(200).json(users))
+      .catch(next);
+  }
 };
 
 module.exports.login = (req, res, next) => {
@@ -58,11 +62,24 @@ module.exports.logout = (req, res, next) => {
 
 module.exports.update = (req, res, next) => {
   const { id } = req.params;
+  if (id != req.session.user.id && req.session.user.userType != "Admin") {
+    res.status(403).json({ message: "Forbidden" });
+  }
+
   const userToUpdate = req.body;
 
   User.findOneAndUpdate(id, userToUpdate, { new: true })
     .then((user) => {
       res.status(202).json(user);
+    })
+    .catch(next);
+};
+
+module.exports.delete = (req, res, next) => {
+  const { id } = req.params;
+  User.findOneAndDelete(id)
+    .then((deleted) => {
+      res.status(202).json({ message: "user deleted" });
     })
     .catch(next);
 };

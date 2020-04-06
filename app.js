@@ -31,10 +31,14 @@ app.use((req, _, next) => {
  */
 const router = require("./config/routes.js");
 const userRoutes = require("./routes/user.routes");
+const rolDepartmentRoutes = require("./routes/rolDepartment.routes");
+const departmentRoutes = require("./routes/departments.routes");
 
 //  configure path routes
 app.use("/", router);
 app.use("/user", userRoutes);
+app.use("/rolDepartment", rolDepartmentRoutes);
+app.use("/department", departmentRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

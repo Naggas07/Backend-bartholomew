@@ -49,17 +49,13 @@ const userSchema = new Schema(
       enum: ["Admin", "User", "Super"],
       default: "User",
     },
-    rol: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Rol",
-    },
     department: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Department",
     },
     departmentRol: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Rol",
+      ref: "RolDepartment",
     },
     squad: {
       type: mongoose.Schema.Types.ObjectId,
@@ -67,7 +63,7 @@ const userSchema = new Schema(
     },
     squadRol: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Rol",
+      ref: "RolSquad",
     },
   },
   {

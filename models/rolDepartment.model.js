@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const RolSchema = new Schema(
+const RolDepartmentSchema = new Schema(
   {
     name: {
       type: String,
@@ -10,15 +10,12 @@ const RolSchema = new Schema(
     state: {
       type: String,
       enum: ["Active", "Inactive"],
-      required: true,
+      default: "Inactive",
     },
     department: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Department",
-    },
-    squad: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Squad",
+      required: true,
     },
   },
   {
@@ -34,6 +31,6 @@ const RolSchema = new Schema(
   }
 );
 
-const Rol = mongoose.model("Rol", RolSchema);
+const RolDepartment = mongoose.model("RolDepartment", RolDepartmentSchema);
 
-module.exports = Rol;
+module.exports = RolDepartment;
